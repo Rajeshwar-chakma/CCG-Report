@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Header: XXGEL_CCG_CT_TRG_STATUS_REP.xml 100.000000 2018-10-25 11:50:40 cemlisup $ -->
+<dataTemplate version="1.0" name="XXGEL_CCG_CT_TRG_STATUS_REP"> 
+<properties> 
+<property name="xml_tag_case" value="upper"/>
+</properties>
+<dataQuery>
+<sqlStatement name="Q_MAIN"> 
+ <![CDATA[ 	
+SELECT
+    o.object_name   trigger_name,
+	to_char(o.created,'DD-MON-YYYY HH24:mi:ss') created, 
+    to_char(o.last_ddl_time,'DD-MON-YYYY HH24:mi:ss') last_ddl_time,
+    o.timestamp,
+    o.status,
+    t.trigger_type,
+    t.table_owner,
+    t.table_name,
+    t.status trigger_status,
+    t.when_clause,
+    t.trigger_body
+FROM
+    all_triggers t,
+    all_objects o
+WHERE
+    1 = 1
+    AND t.trigger_name = o.object_name
+    AND o.object_type = 'TRIGGER'
+		]]>
+</sqlStatement>	
+</dataQuery>
+<dataStructure>
+	<group name="Q_MAIN" dataType="varchar2" source="Q_MAIN">
+		<element name="TRIGGER_NAME"             value="TRIGGER_NAME"        dataType="varchar2"/>
+		<element name="CREATED"                 value="CREATED"              dataType="varchar2"/>
+		<element name="LAST_DDL_TIME"           value="LAST_DDL_TIME"        dataType="varchar2"/>
+		<element name="TIMESTAMP"               value="TIMESTAMP"            dataType="varchar2"/>
+		<element name="STATUS"                  value="STATUS"               dataType="varchar2"/>
+		<element name="TRIGGER_TYPE"            value="TRIGGER_TYPE"         dataType="varchar2"/>
+		<element name="TABLE_OWNER"             value="TABLE_OWNER"          dataType="varchar2"/>
+		<element name="TABLE_NAME"              value="TABLE_NAME"           dataType="varchar2"/>
+		<element name="TRIGGER_STATUS"          value="TRIGGER_STATUS"       dataType="varchar2"/>	
+		<element name="WHEN_CLAUSE"             value="WHEN_CLAUSE"          dataType="varchar2"/>		
+		<element name="TRIGGER_BODY"            value="TRIGGER_BODY"         dataType="varchar2"/>	
+	</group>	
+</dataStructure>
+</dataTemplate>	
